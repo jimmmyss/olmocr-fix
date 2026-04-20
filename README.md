@@ -1,6 +1,6 @@
 # olmocr patch: drop failed-page pdftotext fallback
 
-## What
+## What is it?
 
 A small local modification to olmocr's pipeline that changes how pages which
 fail all OCR retries are handled.
