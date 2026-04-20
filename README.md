@@ -32,12 +32,6 @@ File patched:
 /home/<user>/miniconda3/envs/olmocr/lib/python3.11/site-packages/olmocr/pipeline.py
 ```
 
-Backup of the original (pre-patch) file:
-
-```
-/home/<user>/miniconda3/envs/olmocr/lib/python3.11/site-packages/olmocr/pipeline.py.bak
-```
-
 Function modified: `make_fallback_result(...)`.
 
 ## The change
@@ -50,31 +44,6 @@ Single-line logic change inside `make_fallback_result`:
 ```
 
 The docstring was also expanded to explain the new behavior.
-
-## Verifying the patch is applied
-
-```bash
-grep -n "natural_text=None" \
-  /home/<user>/miniconda3/envs/olmocr/lib/python3.11/site-packages/olmocr/pipeline.py
-```
-
-Expect a match inside the `make_fallback_result` function (around line ~246).
-
-Or view the diff against the backup:
-
-```bash
-diff \
-  /home/<user>/miniconda3/envs/olmocr/lib/python3.11/site-packages/olmocr/pipeline.py.bak \
-  /home/<user>/miniconda3/envs/olmocr/lib/python3.11/site-packages/olmocr/pipeline.py
-```
-
-## Rolling back
-
-```bash
-cp \
-  /home/<user>/miniconda3/envs/olmocr/lib/python3.11/site-packages/olmocr/pipeline.py.bak \
-  /home/<user>/miniconda3/envs/olmocr/lib/python3.11/site-packages/olmocr/pipeline.py
-```
 
 ## Re-applying after an olmocr upgrade
 
