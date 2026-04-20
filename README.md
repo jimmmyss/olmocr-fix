@@ -108,6 +108,7 @@ nohup olmocr /home/<user>/datasets/archetai \
   --tensor-parallel-size 1 \
   --gpu-memory-utilization 0.92 \
   --max_model_len 16384 \
+  --max_page_error_rate 1.0
   --target_longest_image_dim 1024 \
   --pages_per_group 100 \
   --workers 128 \
