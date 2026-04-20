@@ -92,20 +92,25 @@ inside `make_fallback_result` to:
 natural_text=None,
 ```
 
-## Recommended CLI flags with this patch
+## Recommended end-to-end run
 
-To guarantee no document is ever discarded because of failed pages
-(only the failed pages themselves are omitted from the markdown):
+Build the PDF list and launch olmocr in the background. Adjust `<user>` and
+the dataset name (`archetai` below) to your setup.
 
-```
---max_page_error_rate 1.0
-```
+```bash
+find /home/<user>/datasets/archetai/raw -maxdepth 1 -name "*.pdf" > /home/<user>/pdfs_archetai.txt
+wc -l /home/<user>/pdfs_archetai.txt
 
-Optional quality knobs that reduce the chance of pages failing in the first
-place:
-
-```
---max_page_retries 12
---guided_decoding
---target_longest_image_dim 1280
+nohup olmocr /home/<user>/datasets/archetai \
+  --pdfs /home/<user>/pdfs_archetai.txt \
+  --model allenai/olmOCR-2-7B-1025 \
+  --data-parallel-size 16 \
+  --tensor-parallel-size 1 \
+  --gpu-memory-utilization 0.92 \
+  --max_model_len 16384 \
+  --target_longest_image_dim 1024 \
+  --pages_per_group 100 \
+  --workers 128 \
+  --markdown \
+  > /home/<user>/olmocr_archetai.log 2>&1 &
 ```
